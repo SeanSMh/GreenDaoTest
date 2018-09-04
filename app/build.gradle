@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+//关联使用GreenDao
+apply plugin: 'org.greenrobot.greendao'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.example.sean.greendao"
+        minSdkVersion 24
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //GreenDao配置
+    greendao {
+        schemaVersion 1 //数据库版本号 升级时可配置
+        daoPackage 'GreenDao.greendao.db'  //由greendao自动生成实体列所在的包名，默认是在项目包下新建一个gen
+        targetGenDir 'src/main/java'   //设置自动生成代码所在的目录
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+
+    implementation 'org.greenrobot:greendao:3.2.2'  //greendao包依赖
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
